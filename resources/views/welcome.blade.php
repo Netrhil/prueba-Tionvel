@@ -80,7 +80,7 @@
                 <a href="javascript:agregarLinea();" title="Agregar Linea" class="btn btn-primary"><i class="fa fa-plus"></i> Agregar linea</a>
               </div>
               <div class="col-md-6">
-                <button class="btn btn-success pull-right" title="Guardar" type="submit" id="boton_guardar"><i class="fa fa-check"></i> Enviar formulario</button>
+                <button class="btn btn-success pull-right" title="Guardar" type="submit" id="boton_formulario"><i class="fa fa-check"></i> Enviar formulario</button>
               </div>
           </form>
 
