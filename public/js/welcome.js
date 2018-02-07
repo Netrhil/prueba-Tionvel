@@ -3,7 +3,6 @@ var giCount = 4;
 $(document).ready(function() {
 
    $( "#boton_formulario" ).click( function(evento) {
-     evento.preventDefault();
      Validar();
    });
 
@@ -15,7 +14,6 @@ function Validar(){
   var diasValidos = true;
 
   $("tr[id^=tr]").each( function () {
-    console.log($(this));
     var id_error_fecha = $(this).attr("id")+"-error-fecha";
 
     if ($(this).find("input[id^=fecha-]").val() == "") {
@@ -58,21 +56,32 @@ function Validar(){
 }
 
 function enviarRequest() {
-  jsonObj = [];
+  datosJson = [];
 
   $("tr[id^=tr]").each(function () {
     item = {}
     item ["fecha"] = $(this).find("input[id^=fecha-]").val();
     item ["dias"] = $(this).find("input[id^=dias-]").val();
 
-    jsonObj.push(item);
+    datosJson.push(item);
 
   });
 
-  
+  console.log(JSON.stringify(datosJson));
+
+   $.ajax({
+     url: 'http://127.0.0.1:8000/api/ingreso-formulario',
+     type: 'GET',
+     data: { json:JSON.stringify(datosJson)},
+     contentType: 'application/json',
+     dataType: 'json',
+     success: function(data) {
+        $("#info-request").append(data);
+     }
+   });
+
 
 }
-
 
 
 function agregarLinea() {

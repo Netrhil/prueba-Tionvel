@@ -20,7 +20,6 @@
       <div class="container">
         <div class="row">
           <div class="col-md-8">
-            <form id="formulario" name="formulario-id" action="">
             <table id="tabla" class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
@@ -80,12 +79,13 @@
                 <a href="javascript:agregarLinea();" title="Agregar Linea" class="btn btn-primary"><i class="fa fa-plus"></i> Agregar linea</a>
               </div>
               <div class="col-md-6">
-                <button class="btn btn-success pull-right" title="Guardar" type="submit" id="boton_formulario"><i class="fa fa-check"></i> Enviar formulario</button>
+                <button class="btn btn-success pull-right" title="Guardar" id="boton_formulario"><i class="fa fa-check"></i> Enviar formulario</button>
               </div>
-          </form>
-
             </div>
           </div>
+
+        </div>
+        <div id="info-request">
 
         </div>
     </div>
