@@ -14,15 +14,19 @@
         <link href="{{ asset("css/app.css") }}" rel="stylesheet">
         <link href="{{ asset("css/custom.css") }}" rel="stylesheet">
 
-
     </head>
     <body>
       <div class="container">
         <div class="row">
-          <div class="col-md-8">
+          <div class="col-md-6 col-md-offset-3">
+            <div class="row">
+                  <div id="alertas"></div>
+            </div>
+
             <table id="tabla" class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
+                        <th width="10%" class="text-center">Fila</th>
                         <th width="30%">Fecha</th>
                         <th width="30%">Días a sumar</th>
                         <th width="30%" class="text-center">Resultado</th>
@@ -30,6 +34,9 @@
                 </thead>
                 <tbody>
                   <tr id="tr1">
+                        <td class="text-center">
+                            <b>1</b>
+                        </td>
                         <td id="td-fecha-1">
                             <input class="form-control" id="fecha-1" name="fecha[]" type="date">
                         </td>
@@ -39,6 +46,9 @@
                         <td id="td-result-1" align="center"></td>
                   </tr>
                   <tr id="tr2">
+                        <td class="text-center">
+                            <b>2</b>
+                        </td>
                         <td id="td-fecha-2">
                             <input class="form-control" id="fecha-2" name="fecha[]" type="date">
                         </td>
@@ -48,6 +58,9 @@
                         <td id="td-result-2" align="center"></td>
                   </tr>
                   <tr id="tr3">
+                        <td class="text-center">
+                            <b>3</b>
+                        </td>
                         <td id="td-fecha-3">
                             <input class="form-control" id="fecha-3" name="fecha[]" type="date">
                         </td>
@@ -57,6 +70,9 @@
                         <td id="td-result-3" align="center"></td>
                   </tr>
                   <tr id="tr4">
+                        <td class="text-center">
+                            <b>4</b>
+                        </td>
                         <td id="td-fecha-4">
                             <input class="form-control" id="fecha-4" name="fecha[]" type="date">
                         </td>
@@ -75,7 +91,8 @@
                 <button class="btn btn-success pull-right" title="Guardar" id="boton_formulario"><i class="fa fa-check"></i> Enviar formulario</button>
               </div>
             </div>
-          </div>
+
+        </div>
 
         </div>
         <div id="info-request">
@@ -84,6 +101,5 @@
     </div>
     </body>
     <script src="{{asset('js/app.js')}}" type="text/javascript"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.js"></script>
     <script src="{{asset('js/welcome.js')}}" type="text/javascript"></script>
 </html>

@@ -106,6 +106,7 @@ function añadirFila(Tabla) {
   Tabla.each(function() {
     var $table = $(this);
     var tds = '<tr id="tr' + filaCount + '">';
+    tds += '<td class="text-center"><b>' + filaCount + '</b></td>'
     tds += '<td id="td-fecha-' + filaCount + '"><input class="form-control" id="fecha-' + filaCount + '" name="fecha[]" type="date"></td>';
     tds += '<td id="td-dias-' + filaCount + '"><input class="form-control" id="dias-' + filaCount + '" name="dias[]" type="number"></td>';
     tds += '<td id="td-result-' + filaCount + '" align="center"></td>';
@@ -126,11 +127,17 @@ function procesarResponse(Response) {
     $("tr[id^=tr]").removeClass("has-error");
 
     for (var cont in Response["datos"]) {
+      $("#alertas").empty();
+      $("#alertas").append('<div class="alert alert-success"><strong>Éxito!</strong> Las fechas han sido calculadas satisfactoriamente</div>');
+
       filaEnString = String(parseInt(cont) + 1);
       $("#td-result-" + filaEnString).empty();
       $("#td-result-" + filaEnString).append("<b>" + Response["datos"][cont] + " </b>");
     }
   } else {
+    $("#alertas").empty();
+    $("#alertas").append('<div class="alert alert-danger"><strong>Ups!</strong> Hay problemas de ordenamiento en la fila <b>'+ Response["datos"]["posError"] +'</b></div>');
+
     $("td[id^=td-result-]").empty();
     $("tr[id^=tr]").removeClass("has-error");
     $("#tr" + Response["datos"]["posError"]).addClass("has-error");
