@@ -24,7 +24,12 @@ class ApiController extends Controller
       for ($i = 0; $i < count($arregloJsonParse) - 1 ; $i++) {
         if ($arregloJsonParse[$i]["fecha"] > $arregloJsonParse[$i+1]["fecha"]) {
           $fechasValidas = false;
-          $fechaMalOrdenada = $i + 2;
+          if ($i == 0) {
+           $fechaMalOrdenada = 1;
+          }
+          else {
+            $fechaMalOrdenada = $i + 2;
+          }
           break;
         }
       }

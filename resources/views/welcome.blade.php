@@ -25,7 +25,7 @@
                     <tr>
                         <th width="30%">Fecha</th>
                         <th width="30%">Días a sumar</th>
-                        <th width="30%">Resultado</th>
+                        <th width="30%" class="text-center">Resultado</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,9 +36,7 @@
                         <td id="td-dias-1">
                             <input class="form-control" id="dias-1" name="dias[]" type="number">
                         </td>
-                        <td>
-                            <input class="form-control" name="resultado-1" type="date" disabled>
-                        </td>
+                        <td id="td-result-1" align="center"></td>
                   </tr>
                   <tr id="tr2">
                         <td id="td-fecha-2">
@@ -47,9 +45,7 @@
                         <td id="td-dias-2">
                             <input class="form-control" id="dias-2" name="dias[]" type="number">
                         </td>
-                        <td>
-                            <input class="form-control" name="resultado-2" type="date" disabled>
-                        </td>
+                        <td id="td-result-2" align="center"></td>
                   </tr>
                   <tr id="tr3">
                         <td id="td-fecha-3">
@@ -58,8 +54,7 @@
                         <td id="td-dias-3">
                             <input class="form-control" id="dias-3" name="dias[]" type="number">
                         </td>
-                        <td>
-                            <input class="form-control" name="resultado-3" type="date" disabled>
+                        <td id="td-result-3" align="center"></td>
                   </tr>
                   <tr id="tr4">
                         <td id="td-fecha-4">
@@ -68,9 +63,7 @@
                         <td id="td-dias-4">
                             <input class="form-control" id="dias-4" name="dias[]" type="number">
                         </td>
-                        <td>
-                            <input class="form-control" name="resultado-4" type="date" disabled>
-                        </td>
+                        <td id="td-result-4" align="center"></td>
                   </tr>
                 </tbody>
             </table>
