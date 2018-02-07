@@ -13,8 +13,9 @@ class ApiController extends Controller
       date_default_timezone_set('america/santiago');
 
       $arregloJson = collect(json_decode($request->json, true));
-      $Resultado[] = array();
+      $Resultado =[];
       $fechasValidas = true;
+      $fechaMalOrdenada = -1;
 
       $arregloJsonParse = $arregloJson->map(function($parDiaFecha){
          return ["fecha" => Carbon::createFromFormat('Y-m-d', $parDiaFecha["fecha"]), "dias" => (int)$parDiaFecha["dias"]];
@@ -23,27 +24,35 @@ class ApiController extends Controller
       for ($i = 0; $i < count($arregloJsonParse) - 1 ; $i++) {
         if ($arregloJsonParse[$i]["fecha"] > $arregloJsonParse[$i+1]["fecha"]) {
           $fechasValidas = false;
+          $fechaMalOrdenada = $i + 2;
           break;
         }
       }
 
-      foreach ($arregloJsonParse as $parDiaFecha) {
-        $dias = $parDiaFecha["dias"];
-        $fecha = $parDiaFecha["fecha"];
+      if ($fechasValidas) {
+        foreach ($arregloJsonParse as $parDiaFecha) {
+          $dias = $parDiaFecha["dias"];
+          $fecha = $parDiaFecha["fecha"];
 
-        while ($dias > 0) {
-          if ($fecha->isWeekend() or $this->esFeriadoIrrenunciable( $fecha )) {
-            $fecha->addDays(2);
+          while ($dias > 0) {
+            if ($fecha->isWeekend() or $this->esFeriadoIrrenunciable( $fecha )) {
+              $fecha->addDays(2);
+            }
+            else {
+              $fecha->addDays(1);
+            }
+            $dias--;
           }
-          else {
-            $fecha->addDays(1);
-          }
-          $dias--;
+          array_push($Resultado, $fecha->toDateString());
+          $status = "OK";
         }
-        array_push($Resultado, $fecha);
+      }
+      else {
+        $status = "error ordenamiento";
+        $Resultado = ["posError" => $fechaMalOrdenada];
       }
 
-      return response()->json(json_encode($arregloJson));;
+      return response()->json([ "status" => $status, 'datos' => $Resultado ]);
 
 
     }
