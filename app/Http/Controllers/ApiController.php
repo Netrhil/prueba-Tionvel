@@ -14,10 +14,18 @@ class ApiController extends Controller
 
       $arregloJson = collect(json_decode($request->json, true));
       $Resultado[] = array();
+      $fechasValidas = true;
 
       $arregloJsonParse = $arregloJson->map(function($parDiaFecha){
          return ["fecha" => Carbon::createFromFormat('Y-m-d', $parDiaFecha["fecha"]), "dias" => (int)$parDiaFecha["dias"]];
       });
+
+      for ($i = 0; $i < count($arregloJsonParse) - 1 ; $i++) {
+        if ($arregloJsonParse[$i]["fecha"] > $arregloJsonParse[$i+1]["fecha"]) {
+          $fechasValidas = false;
+          break;
+        }
+      }
 
       foreach ($arregloJsonParse as $parDiaFecha) {
         $dias = $parDiaFecha["dias"];
@@ -32,15 +40,8 @@ class ApiController extends Controller
           }
           $dias--;
         }
-
         array_push($Resultado, $fecha);
-
       }
-    
-      // $date = Carbon::createFromFormat('Y-m-d',"2017-11-25");
-      // $MyDateCarbon = Carbon::parse($date);
-      //
-      // dd($this->esFeriadoIrrenunciable($MyDateCarbon));
 
       return response()->json(json_encode($arregloJson));;
 
@@ -56,9 +57,7 @@ class ApiController extends Controller
                                 ["mes" => 12, "dia" => 25]]);
 
       $esFeriado = $diasFeriados->search(function ($feriado) use ($Fecha)  {
-
           return $Fecha->month == $feriado["mes"] and $Fecha->day == $feriado["dia"];
-
         });
 
       if ($esFeriado) {
