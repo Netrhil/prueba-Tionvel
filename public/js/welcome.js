@@ -8,6 +8,12 @@ $(document).ready(function() {
 
 });
 
+
+/**
+ Lee cada fila de la tabla, si encuentra algun campo de fecha o
+ dias vacío ,impide que se mande el formulario a la api.
+**/
+
 function Validar() {
 
   var fechasValidas = true;
@@ -16,6 +22,7 @@ function Validar() {
   $("tr[id^=tr]").each(function() {
     var id_error_fecha = $(this).attr("id") + "-error-fecha";
 
+    //Si encuentra datos vacios en la fecha, adjunta un mensaje y agregar color al input.
     if ($(this).find("input[id^=fecha-]").val() == "") {
       fechasValidas = false;
       $("#" + id_error_fecha).remove();
@@ -30,6 +37,7 @@ function Validar() {
     }
   });
 
+  //Si encuentra datos vacios en los dias, adjunta un mensaje y agregar color al input.
   $("tr[id^=tr]").each(function() {
     var id_error_dias = $(this).attr("id") + "-error-dias";
 
@@ -53,6 +61,7 @@ function Validar() {
 
 }
 
+//Toma todos los pares fecha/dia y los envia a la api en formato json.
 function enviarRequest() {
   datosJson = [];
 
@@ -66,7 +75,7 @@ function enviarRequest() {
   });
 
   $.ajax({
-    url: 'http://127.0.0.1:8000/api/ingreso-formulario',
+    url:  window.location.href + 'api/ingreso-formulario',
     type: 'GET',
     data: {
       json: JSON.stringify(datosJson)
@@ -81,7 +90,6 @@ function enviarRequest() {
 
 
 }
-
 
 function agregarLinea() {
   tabla = $('#tabla tr:last').attr('id').match(/[0-9]+/g);
@@ -121,6 +129,11 @@ function añadirFila(Tabla) {
   });
 }
 
+/**
+  Procesa el response y muestra las fechas calculadas, en el caso
+  de haber errores de de ordenamiento , muestra una alerta indicando
+  en que fila ocurrio.
+**/
 function procesarResponse(Response) {
 
   if (Response["status"] == "OK") {
@@ -136,7 +149,7 @@ function procesarResponse(Response) {
     }
   } else {
     $("#alertas").empty();
-    $("#alertas").append('<div class="alert alert-danger"><strong>Ups!</strong> Hay problemas de ordenamiento en la fila <b>'+ Response["datos"]["posError"] +'</b></div>');
+    $("#alertas").append('<div class="alert alert-danger"><strong>Ups!</strong> Hay problemas de ordenamiento en la fila <b>' + Response["datos"]["posError"] + '</b></div>');
 
     $("td[id^=td-result-]").empty();
     $("tr[id^=tr]").removeClass("has-error");

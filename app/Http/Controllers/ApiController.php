@@ -17,10 +17,12 @@ class ApiController extends Controller
       $fechasValidas = true;
       $fechaMalOrdenada = -1;
 
+      #Convierte las fechas del arreglo de formato string a date.
       $arregloJsonParse = $arregloJson->map(function($parDiaFecha){
          return ["fecha" => Carbon::createFromFormat('Y-m-d', $parDiaFecha["fecha"]), "dias" => (int)$parDiaFecha["dias"]];
       });
 
+      #Validación de ordenamiento de fechas
       for ($i = 0; $i < count($arregloJsonParse) - 1 ; $i++) {
         if ($arregloJsonParse[$i]["fecha"] > $arregloJsonParse[$i+1]["fecha"]) {
           $fechasValidas = false;
@@ -34,11 +36,15 @@ class ApiController extends Controller
         }
       }
 
+      #Crea la respuesta dependiendo si las fechas son validas en orden.
       if ($fechasValidas) {
         foreach ($arregloJsonParse as $parDiaFecha) {
           $dias = $parDiaFecha["dias"];
           $fecha = $parDiaFecha["fecha"];
 
+          /**Agrega dias habiles considerando domingos y feriados irrenunciables
+             para ello utilizando una funcion
+           **/
           while ($dias > 0) {
             if ($fecha->isWeekend() or $this->esFeriadoIrrenunciable( $fecha )) {
               $fecha->addDays(2);
@@ -62,6 +68,7 @@ class ApiController extends Controller
 
     }
 
+    #Funcion que evalua si una fecha es un feriado irrenunciable, retornando un bool para ello.
     public function esFeriadoIrrenunciable( $Fecha )
     {
       $diasFeriados = collect([["mes" => 1, "dia" => 1],
