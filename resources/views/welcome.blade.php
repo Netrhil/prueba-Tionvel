@@ -84,10 +84,13 @@
                 </tbody>
             </table>
               <div class="row">
-              <div class="col-md-6">
-                <a href="javascript:agregarLinea();" title="Agregar Linea" class="btn btn-primary"><i class="fa fa-plus"></i> Agregar linea</a>
+              <div class="col-md-4">
+                <a href="javascript:agregarLinea();" title="Agregar Linea" class="btn btn-primary pull-left"><i class="fa fa-plus"></i> Agregar linea</a>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-4">
+                <a target="_blank"  href="{{ url("/test-unitario") }}?coverage" class="btn btn-info" title="Guardar" id="boton-test-unitario"><i class="fa fa-cogs"></i> Test unitario</a>
+              </div>
+              <div class="col-md-4">
                 <button class="btn btn-success pull-right" title="Guardar" id="boton_formulario"><i class="fa fa-check"></i> Enviar formulario</button>
               </div>
             </div>
